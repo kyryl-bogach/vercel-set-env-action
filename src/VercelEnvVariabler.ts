@@ -50,7 +50,7 @@ export default class VercelEnvVariabler {
             headers: {
                 Authorization: `Bearer ${this.token}`,
             },
-            baseURL: "https://api.vercel.com/v8",
+            baseURL: "https://api.vercel.com/v10",
             params: {
                 teamId: this.teamId,
             },
