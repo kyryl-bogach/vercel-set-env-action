@@ -109,6 +109,7 @@ export default class VercelEnvVariabler {
         const existingTargets = Object.keys(existingVariables);
         if (existingTargets.length === 0) {
             info(`No existing variable found for ${envVariableKey}, creating.`);
+            info(`Gitbranch: ${gitBranch}`);
             await this.createEnvVariable({
                 key: envVariableKey,
                 value,
