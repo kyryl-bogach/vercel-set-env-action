@@ -21,6 +21,7 @@ describe("VercelEnvVariabler", () => {
     const newEnv3Value = "NEW_ENV_3_VALUE";
     const newEnv4Value = "NEW_ENV_4_VALUE";
     const newEnv5Value = "NEW_ENV_5_VALUE";
+    const newEnv6Value = "NEW_ENV_6_VALUE";
     beforeAll(() => {
         process.env.ENV_1 = "ENV_1_VALUE";
         process.env.TARGET_ENV_1 = "production,preview,development";
@@ -42,6 +43,11 @@ describe("VercelEnvVariabler", () => {
         process.env.TARGET_ENV_5 = "preview";
         process.env.TYPE_ENV_5 = "plain";
         process.env.GIT_BRANCH_ENV_5 = "feature/foo";
+
+        process.env.ENV_6 = newEnv6Value;
+        process.env.TARGET_ENV_6 = "preview";
+        process.env.TYPE_ENV_6 = "plain";
+        process.env.GIT_BRANCH_ENV_6 = "feature/foo";
 
         mocked(listEnvVariables).mockResolvedValue({
             data: { envs: mockEnvVariablesResponse },
@@ -187,6 +193,30 @@ describe("VercelEnvVariabler", () => {
             testProjectName,
             expect.objectContaining({
                 value: newEnv5Value,
+                target: ["preview"],
+                type: "plain",
+                gitBranch: "feature/foo",
+            })
+        );
+        expect(mocked(patchEnvVariable)).not.toHaveBeenCalled();
+    });
+
+    it("Should update ENV_6", async () => {
+        const variabler = new VercelEnvVariabler(
+            testToken,
+            testProjectName,
+            "ENV_6",
+            testTeamId
+        );
+
+        await variabler.populateExistingEnvVariables();
+        await variabler.processEnvVariables();
+
+        expect(mocked(postEnvVariable)).toHaveBeenCalledWith(
+            expect.anything(),
+            testProjectName,
+            expect.objectContaining({
+                value: newEnv6Value,
                 target: ["preview"],
                 type: "plain",
                 gitBranch: "feature/foo",

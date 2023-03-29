@@ -99,7 +99,7 @@ export default class VercelEnvVariabler {
                 envVariableKey
             ];
 
-            if (existingVariable) {
+            if (existingVariable && existingVariable.gitBranch === gitBranch) {
                 result[target] = existingVariable;
             }
 
