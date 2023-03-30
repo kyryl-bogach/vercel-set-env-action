@@ -94,6 +94,7 @@ export default class VercelEnvVariabler {
             gitBranch,
         } = this.parseAndValidateEnvVariable(envVariableKey);
 
+        info(JSON.stringify(this.existingEnvVariables));
         const existingVariables = targets.reduce((result, target) => {
             const existingVariable = this.existingEnvVariables?.[target]?.[
                 envVariableKey
