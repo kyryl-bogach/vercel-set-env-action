@@ -67,6 +67,7 @@ export default class VercelEnvVariabler {
         if (env) {
             info(`Found ${env.length} existing env variables`);
 
+            info(JSON.stringify(env));
             for (const existingEnvVariable of env) {
                 for (const existingTarget of existingEnvVariable.target) {
                     const preExistingVariablesForTarget =

@@ -63,6 +63,7 @@ class VercelEnvVariabler {
             const env = (_a = envResponse === null || envResponse === void 0 ? void 0 : envResponse.data) === null || _a === void 0 ? void 0 : _a.envs;
             if (env) {
                 core_1.info(`Found ${env.length} existing env variables`);
+                core_1.info(JSON.stringify(env));
                 for (const existingEnvVariable of env) {
                     for (const existingTarget of existingEnvVariable.target) {
                         const preExistingVariablesForTarget = (_b = this.existingEnvVariables[existingTarget]) !== null && _b !== void 0 ? _b : {};
